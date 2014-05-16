@@ -11,6 +11,7 @@ define :puma_web_app do
     ssl_certificate_ca deploy[:ssl_certificate_ca]
     http_port deploy[:http_port] || 80
     ssl_port deploy[:ssl_port] || 443
+    ssl_support deploy[:ssl_support] || false
     cookbook "opsworks-puma"
     deploy deploy
     template "nginx_puma_web_app.erb"
