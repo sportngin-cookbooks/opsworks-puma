@@ -21,7 +21,7 @@ server {
     proxy_redirect off;
 
     # If you don't find the filename in the static files
-    # Then request it from the unicorn server
+    # Then request it from the puma server
     if (!-f $request_filename) {
       proxy_pass http://puma_<%= @application[:domains].first %>;
       break;
@@ -69,9 +69,9 @@ server {
     proxy_redirect off;
 
     # If you don't find the filename in the static files
-    # Then request it from the unicorn server
+    # Then request it from the puma server
     if (!-f $request_filename) {
-      proxy_pass http://unicorn_<%= @application[:domains].first %>;
+      proxy_pass http://puma_<%= @application[:domains].first %>;
       break;
     }
   }
