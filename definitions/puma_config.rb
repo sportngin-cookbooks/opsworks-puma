@@ -20,6 +20,7 @@ define :puma_config, :owner => 'deploy', :group => 'nginx', :directory  => nil, 
   params[:exec_prefix] ||= "bundle exec"
   params[:config_source] ||= "puma.rb.erb"
   params[:config_cookbook] ||= "opsworks-puma"
+  params[:worker_timeout] ||= "60"
 
   group params[:group]
 
