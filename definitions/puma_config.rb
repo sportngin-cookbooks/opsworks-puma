@@ -16,7 +16,7 @@ define :puma_config, :owner => 'deploy', :group => 'nginx', :directory  => nil, 
   params[:pidfile] ||= "#{params[:directory]}/shared/pids/#{params[:name]}.pid"
   params[:stdout_redirect] ||= "#{params[:working_dir]}/log/puma.log"
   params[:stderr_redirect] ||= "#{params[:working_dir]}/log/puma.error.log"
-  params[:bin_path] ||= "/usr/local/bin/puma"
+  params[:bin_path] ||= "puma"
   params[:exec_prefix] ||= "bundle exec"
   params[:config_source] ||= "puma.rb.erb"
   params[:config_cookbook] ||= "opsworks-puma"
