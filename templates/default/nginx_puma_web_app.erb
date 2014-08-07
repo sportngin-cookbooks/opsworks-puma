@@ -39,6 +39,10 @@ server {
   location = /500.html {
     root <%= @application[:absolute_document_root] %>;
   }
+
+  # Include custom confs for the http server block
+  include /etc/nginx/http/*.conf;
+  include /etc/nginx/shared/*.conf;
 }
 
 <% if @params[:ssl_support] %>
@@ -80,5 +84,9 @@ server {
   location = /500.html {
     root <%= @application[:absolute_document_root] %>;
   }
+
+  # Include custom confs for the ssl server block
+  include /etc/nginx/shared/*.conf;
+  include /etc/nginx/ssl/*.conf;
 }
 <% end %>
