@@ -41,8 +41,8 @@ server {
   }
 
   # Include custom confs for the http server block
-  include /etc/nginx/http/*.conf
-  include /etc/nginx/shared/*.conf
+  include /etc/nginx/http/*.conf;
+  include /etc/nginx/shared/*.conf;
 }
 
 <% if @params[:ssl_support] %>
@@ -86,7 +86,7 @@ server {
   }
 
   # Include custom confs for the ssl server block
-  include /etc/nginx/shared/*.conf
-  include /etc/nginx/ssl/*.conf
+  include /etc/nginx/shared/*.conf;
+  include /etc/nginx/ssl/*.conf;
 }
 <% end %>
