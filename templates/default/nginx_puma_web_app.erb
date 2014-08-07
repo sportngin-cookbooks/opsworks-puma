@@ -40,6 +40,7 @@ server {
     root <%= @application[:absolute_document_root] %>;
   }
 
+  include /etc/nginx/http/*.conf
   include /etc/nginx/shared/*.conf
 }
 
