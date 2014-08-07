@@ -40,6 +40,7 @@ server {
     root <%= @application[:absolute_document_root] %>;
   }
 
+  # Include custom confs for the http server block
   include /etc/nginx/http/*.conf
   include /etc/nginx/shared/*.conf
 }
@@ -84,6 +85,7 @@ server {
     root <%= @application[:absolute_document_root] %>;
   }
 
+  # Include custom confs for the ssl server block
   include /etc/nginx/shared/*.conf
   include /etc/nginx/ssl/*.conf
 }
