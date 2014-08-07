@@ -4,6 +4,7 @@ end
 
 include_recipe "nginx"
 
+directory "/etc/nginx/shared"
 
 node[:deploy].each do |application, deploy|
   puma_config application do

@@ -39,6 +39,8 @@ server {
   location = /500.html {
     root <%= @application[:absolute_document_root] %>;
   }
+
+  include /etc/nginx/shared/*.conf
 }
 
 <% if @params[:ssl_support] %>
@@ -80,5 +82,8 @@ server {
   location = /500.html {
     root <%= @application[:absolute_document_root] %>;
   }
+
+  include /etc/nginx/shared/*.conf
+  include /etc/nginx/ssl/*.conf
 }
 <% end %>
