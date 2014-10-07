@@ -23,6 +23,14 @@ server {
     proxy_set_header <%= header %> <%= value %>;
     <% end %>
 
+    <% if @application[:nginx] && @application[:nginx][:proxy_max_temp_file_size] %>
+    proxy_max_temp_file_size <%= @application[:nginx][:proxy_max_temp_file_size] %>;
+    <% end %>
+
+    <% if @application[:nginx] && @application[:nginx][:proxy_headers_hash_bucket_size] %>
+    proxy_headers_hash_bucket_size <%= @application[:nginx][:proxy_headers_hash_bucket_size] %>;
+    <% end %>
+
     proxy_redirect off;
 
     # If you don't find the filename in the static files
