@@ -23,7 +23,7 @@ TIMEOUT=<%= @restart_timeout %>
 TIME=0
 
 if ps -p $PID > /dev/null; then
-  echo "Hot Restarting $APPNAME"
+  echo "Phased Restarting $APPNAME"
   kill -USR1 $PID
   until workers_new $RUNNING_WORKER_PIDS $PID || [ "$TIME" -eq  "$TIMEOUT" ]; do
     sleep 1
