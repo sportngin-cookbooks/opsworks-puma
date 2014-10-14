@@ -17,6 +17,7 @@ node[:deploy].each do |application, deploy|
     thread_max deploy[:puma][:thread_max]
     workers deploy[:puma][:workers]
     worker_timeout deploy[:puma][:worker_timeout]
+    restart_timeout deploy[:puma][:restart_timeout] || 120
   end
 end
 
