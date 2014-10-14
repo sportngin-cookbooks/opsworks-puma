@@ -1,6 +1,15 @@
 #!/usr/bin/env bash
 . /etc/rc.d/init.d/functions
 
+function worker_pids() {
+  # Get The child pids of the puma master process
+  ps -ef|awk '$3=='$1' {print $2}'
+}
+function workers_new() {
+  # Check for nonexistance of old worker pids    Check to ensure the same number of workers are running
+  return $(! ps -p $(echo "$1") > /dev/null) && [ "$(printf "%s\n" $1 | wc -l)" -eq "$(worker_pids $2 | wc -l)" ]
+}
+
 PATH=/usr/local/bin:$PATH
 
 APPNAME="<%= @name %>"
@@ -8,10 +17,20 @@ APP_DIR="<%= @directory %>"
 
 PUMA_DIR="$APP_DIR/shared/puma"
 PIDFILE="$APP_DIR/shared/pids/$APPNAME.pid"
+PID=$(cat $PIDFILE)
+RUNNING_WORKER_PIDS=$(worker_pids $PID)
+TIMEOUT=<%= @restart_timeout %>
+TIME=0
 
-if [ -e $PIDFILE ]; then
-  echo -n "Hot Restarting $APPNAME"
-  kill -USR1 $(cat $PIDFILE) && success || failure
+if ps -p $PID > /dev/null; then
+  echo "Hot Restarting $APPNAME"
+  kill -USR1 $PID
+  until workers_new $RUNNING_WORKER_PIDS $PID || [ "$TIME" -eq  "$TIMEOUT" ]; do
+    sleep 1
+    TIME=$((TIME+1))
+  done
+
+  [ "$TIME" -ne "$TIMEOUT" ] && success || failure
 else
   echo "$APPNAME isn't running.."
   $PUMA_DIR/puma_start.sh
