@@ -71,6 +71,11 @@ server {
   ssl_client_certificate /etc/nginx/ssl/<%= @application[:domains].first %>.ca;
   <% end -%>
 
+
+  <% @application.fetch(:nginx, {}).fetch(:extra_ssl_server_options, {}).each do |config_key, value| %>
+  <%= config_key %> <%= value %>;
+  <% end %>
+
   keepalive_timeout 5;
 
   root <%= @application[:absolute_document_root] %>;
