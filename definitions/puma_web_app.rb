@@ -2,12 +2,6 @@ define :puma_web_app do
   deploy = params[:deploy]
   application = params[:application]
 
-  service application do
-    supports :start => true, :stop => true, :restart => true
-    action :nothing
-    notifies :start, "service[#{application}]", :delayed
-  end
-
   nginx_web_app deploy[:application] do
     docroot deploy[:absolute_document_root]
     server_name deploy[:domains].first
