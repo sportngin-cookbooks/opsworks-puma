@@ -82,6 +82,11 @@ define :puma_config, :owner => 'deploy', :group => 'nginx', :directory  => nil, 
     variables params
   end
 
+  service params[:name] do
+    supports :start => true, :stop => true, :restart => true
+    action :nothing
+  end
+
   template "#{params[:name]}" do
     source "init.d.sh.erb"
     path "/etc/init.d/#{params[:name]}"
@@ -90,6 +95,7 @@ define :puma_config, :owner => 'deploy', :group => 'nginx', :directory  => nil, 
     owner params[:owner] if params[:owner]
     group params[:group] if params[:group]
     variables params
+    notifies :start, "service[#{params[:name]}]", :delayed
   end
 
   if params[:logrotate]
