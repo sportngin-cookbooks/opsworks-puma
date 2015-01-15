@@ -18,6 +18,7 @@ node[:deploy].each do |application, deploy|
     workers deploy[:puma][:workers]
     worker_timeout deploy[:puma][:worker_timeout]
     restart_timeout deploy[:puma][:restart_timeout] || 120
+    exec_prefix deploy[:puma][:exec_prefix] || "bundle exec"
   end
 end
 
