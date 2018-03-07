@@ -5,7 +5,8 @@ server unix://<%= @application[:deploy_to]%>/shared/puma/<%= @application_name %
 server {
 listen <%= @params[:http_port] %><%= " default_server" if node[:nginx][:default_server] %>;
   server_name <%= @application[:domains].join(" ") %> <%= node[:hostname] %>;
-  access_log <%= node[:nginx][:log_dir] %>/<%= @application[:domains].first %>.access.log;
+  access_log <%= node[:nginx][:log_dir] %>/<%= @application[:domains].first %>.access.log<%=" #{node[:nginx][:log_format_name]}" unless node[:nginx][:log_format_name].nil? %>;
+
 
   keepalive_timeout 5;
 
@@ -66,7 +67,7 @@ listen <%= @params[:http_port] %><%= " default_server" if node[:nginx][:default_
 server {
   listen <%= @application[:ssl_port] %><%= " default_server" if node[:nginx][:default_server] %>;
   server_name <%= @application[:domains].join(" ") %> <%= node[:hostname] %>;
-  access_log <%= node[:nginx][:log_dir] %>/<%= @application[:domains].first %>-ssl.access.log;
+  access_log <%= node[:nginx][:log_dir] %>/<%= @application[:domains].first %>-ssl.access.log<%=" #{node[:nginx][:log_format_name]}" unless node[:nginx][:log_format_name].nil? %>;
 
   ssl on;
   ssl_certificate /etc/nginx/ssl/<%= @application[:domains].first %>.crt;
