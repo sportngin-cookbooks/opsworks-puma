@@ -65,7 +65,7 @@ listen <%= @params[:http_port] %><%= " default_server" if node[:nginx][:default_
 
 <% if @params[:ssl_support] %>
 server {
-  listen <%= @application[:ssl_port] %><%= " proxy_protocol" if @application[:nginx][:proxy_protocol_enable] %><%= " default_server" if @application[:nginx][:default_server] %>;
+  listen <%= @application[:ssl_port] %><%= " proxy_protocol" if node[:nginx][:proxy_protocol_enable] %><%= " default_server" if @application[:nginx][:default_server] %>;
   server_name <%= @application[:domains].join(" ") %> <%= node[:hostname] %>;
   access_log <%= node[:nginx][:log_dir] %>/<%= @application[:domains].first %>-ssl.access.log<%=" #{node[:nginx][:log_format_name]}" unless node[:nginx][:log_format_name].nil? %>;
 
@@ -91,7 +91,7 @@ server {
 
   location / {
     proxy_set_header X-Forwarded-Proto https;
-    <% if @application[:nginx][:proxy_protocol_enable] %>
+    <% if node[:nginx][:proxy_protocol_enable] %>
     proxy_set_header X-Real-IP       $proxy_protocol_addr;
     proxy_set_header X-Forwarded-For $proxy_protocol_addr;
     <% else %>
@@ -115,7 +115,7 @@ server {
     root <%= @application[:absolute_document_root] %>;
   }
 
-  <% if @application[:nginx][:proxy_protocol_enable] %>
+  <% if node[:nginx][:proxy_protocol_enable] %>
   real_ip_header proxy_protocol;
   <% end %>
 
