@@ -2,7 +2,7 @@ name        "opsworks-puma"
 description "Manage the ruby app server puma on AWS OpsWorks"
 maintainer  "Sport Ngin"
 license     "MIT"
-version     "0.0.5"
+version     "0.0.6"
 
 depends "nginx"
 depends "deploy"
