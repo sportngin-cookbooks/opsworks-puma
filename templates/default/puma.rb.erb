@@ -5,7 +5,7 @@ directory "<%= @working_dir %>"
 
 # A list of plugins for puma to load in
 <% if @plugins %>
-  <% plugins.each do |plugin| %>
+  <% @plugins.each do |plugin| %>
 plugin '<%= plugin %>'
   <% end %>
 <% end %>
