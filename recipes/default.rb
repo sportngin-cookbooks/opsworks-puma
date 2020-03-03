@@ -21,6 +21,7 @@ node[:deploy].each do |application, deploy|
     exec_prefix deploy[:puma][:exec_prefix] || "bundle exec"
     prune_bundler deploy[:puma][:prune_bundler]
     plugins deploy[:puma][:plugins]
+    daemonize deploy[:puma][:daemonize]
   end
 end
 
