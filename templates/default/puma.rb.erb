@@ -3,6 +3,13 @@
 # The directory to operate out of.
 directory "<%= @working_dir %>"
 
+# A list of plugins for puma to load in
+<% if @plugins %>
+  <% @plugins.each do |plugin| %>
+plugin '<%= plugin %>'
+  <% end %>
+<% end %>
+
 # Use a object or block as the rack application. This allows the
 # config file to be the application itself.
 #

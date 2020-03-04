@@ -4,7 +4,7 @@ define :puma_config, :owner => 'deploy', :group => 'nginx', :directory  => nil, 
                      :quiet => false, :thread_min => 0, :thread_max => 16, :bind => nil, :control_app_bind => nil,
                      :workers => 0, :activate_control_app => true, :logrotate => true, :exec_prefix => nil,
                      :config_source => nil, :config_cookbook => nil, :worker_timeout => nil,
-                     :preload_app => false, :prune_bundler => true, :on_worker_boot => nil do
+                     :preload_app => false, :prune_bundler => true, :on_worker_boot => nil, :plugins => nil do
 
   params[:directory] ||= "/srv/www/#{params[:name]}"
   params[:working_dir] ||= "#{params[:directory]}/current"
