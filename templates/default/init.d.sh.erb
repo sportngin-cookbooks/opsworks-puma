@@ -21,7 +21,7 @@ start() {
   <% if @daemonize %>
   daemon --user $USERNAME --pidfile $PIDFILE $START && success || failure
   <% else %>
-  /sbin/runuser -u $USERNAME $START
+  sudo -u $USERNAME $START
   <% end %>
 }
 
