@@ -7,4 +7,4 @@ APPNAME="<%= @name %>"
 
 echo -n "Starting $APPNAME.."
 <% if !@daemonize; @exec_prefix = "exec #{@exec_prefix}" end %>
-cd <%= @working_dir %> && <%= @exec_prefix %> <%= @bin_path %> -C <%= @config_path %>
+cd <%= @working_dir %> && <%= @exec_prefix %> <%= @bin_path %> -C <%= @config_path %> <% if !@daemonize %>&<% end %>
