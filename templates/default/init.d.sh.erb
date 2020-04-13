@@ -19,6 +19,9 @@ RESTART="$PUMA_DIR/puma_restart.sh"
 
 start() {
   daemon --user $USERNAME --pidfile $PIDFILE $START && success || failure
+  <% else %>
+  /sbin/runuser -u $USERNAME $START
+  <% end %>
 }
 
 stop() {
