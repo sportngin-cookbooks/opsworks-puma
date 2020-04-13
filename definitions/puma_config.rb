@@ -95,7 +95,7 @@ define :puma_config, :owner => 'deploy', :group => 'nginx', :directory  => nil, 
     owner params[:owner] if params[:owner]
     group params[:group] if params[:group]
     variables params
-    notifies :restart, "service[#{params[:name]}]", :delayed
+    notifies :start, "service[#{params[:name]}]", :delayed
   end
 
   if params[:logrotate]

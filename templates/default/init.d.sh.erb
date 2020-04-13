@@ -18,11 +18,7 @@ STOP="$PUMA_DIR/puma_stop.sh"
 RESTART="$PUMA_DIR/puma_restart.sh"
 
 start() {
-  <% if @daemonize %>
   daemon --user $USERNAME --pidfile $PIDFILE $START && success || failure
-  <% else %>
-  /sbin/runuser -u $USERNAME $START
-  <% end %>
 }
 
 stop() {
