@@ -6,5 +6,4 @@ PATH=/usr/local/bin:$PATH
 APPNAME="<%= @name %>"
 
 echo -n "Starting $APPNAME.."
-<% if !@daemonize; @exec_prefix = "exec #{@exec_prefix}" end %>
-<%= @init_command %>cd <%= @working_dir %> && <%= @exec_prefix %> <%= @bin_path %> -C <%= @config_path %> <% if !@daemonize %>&<% end %>
+<%= @init_command %>cd <%= @working_dir %> && <%= @exec_prefix %> <%= @bin_path %> -C <%= @config_path %>
