@@ -75,7 +75,7 @@ server {
   <% if @application[:ssl_certificate_ca] -%>
   ssl_client_certificate /etc/nginx/ssl/<%= @application[:domains].first %>.ca;
   <% end -%>
-  ssl_dhparam <%= @dh_key %>;
+  ssl_dhparam <%= node[:nginx][:dh_key] %>;
 
 
 
