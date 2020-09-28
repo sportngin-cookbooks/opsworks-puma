@@ -2,6 +2,16 @@ define :puma_web_app do
   deploy = params[:deploy]
   application = params[:application]
 
+  execute 'Generate Diffie-Hellman key' do
+    command "openssl dhparam -dsaparam -out #{node[:nginx][:dh_key]} #{node[:nginx][:dh_key_bits]}"
+    creates node[:nginx][:dh_key]
+  end
+  file node[:nginx][:dh_key] do
+    owner "root"
+    group "root"
+    mode 0600
+  end
+
   nginx_web_app deploy[:application] do
     docroot deploy[:absolute_document_root]
     server_name deploy[:domains].first
